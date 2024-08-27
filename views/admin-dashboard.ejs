@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .admin-container {
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .claim-checkbox, .claim-date {
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 8px 4px;
+            }
+            .mobile-hide {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Email</th>
+                        <th class="mobile-hide">Phone</th>
+                        <th>NPS</th>
+                        <th class="mobile-hide">Overall</th>
+                        <th class="mobile-hide">Food</th>
+                        <th class="mobile-hide">Pricing</th>
+                        <th class="mobile-hide">Service</th>
+                        <th class="mobile-hide">Comment</th>
+                        <th>Discount Code</th>
+                        <th>Claimed</th>
+                        <th>Claim Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% submissions.forEach(function(submission) { %>
+                        <tr>
+                            <td><%= new Date(submission.timestamp).toLocaleString() %></td>
+                            <td><%= submission.email %></td>
+                            <td class="mobile-hide"><%= submission.phone %></td>
+                            <td><%= submission.nps %></td>
+                            <td class="mobile-hide"><%= submission.overall %></td>
+                            <td class="mobile-hide"><%= submission.food %></td>
+                            <td class="mobile-hide"><%= submission.pricing %></td>
+                            <td class="mobile-hide"><%= submission.service %></td>
+                            <td class="mobile-hide"><%= submission.comment %></td>
+                            <td><%= submission.discount_code %></td>
+                            <td>
+                                <input type="checkbox" class="claim-checkbox" data-id="<%= submission.id %>" <%= submission.claimed ? 'checked' : '' %>>
+                            </td>
+                            <td>
+                                <input type="date" class="claim-date" data-id="<%= submission.id %>" value="<%= submission.claim_date ? new Date(submission.claim_date).toISOString().split('T')[0] : '' %>" <%= submission.claimed ? '' : 'disabled' %>>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.claim-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const id = this.dataset.id;
+                const claimed = this.checked;
+                const dateInput = document.querySelector(`.claim-date[data-id="${id}"]`);
+                dateInput.disabled = !claimed;
+                if (claimed && !dateInput.value) {
+                    dateInput.value = new Date().toISOString().split('T')[0];
+                }
+                updateClaimStatus(id, claimed, dateInput.value);
+            });
+        });
+
+        document.querySelectorAll('.claim-date').forEach(dateInput => {
+            dateInput.addEventListener('change', function() {
+                const id = this.dataset.id;
+                const checkbox = document.querySelector(`.claim-checkbox[data-id="${id}"]`);
+                updateClaimStatus(id, checkbox.checked, this.value);
+            });
+        });
+
+        function updateClaimStatus(id, claimed, claimDate) {
+            fetch('/admin/update-claim', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `id=${id}&claimed=${claimed}&claimDate=${claimDate}`,
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update claim status');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update claim status');
+            });
+        }
+    </script>
+</body>
+</html>

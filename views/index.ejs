@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Survey</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Let us know how we did!</h1>
+        <form id="survey-form" action="/rate" method="POST">
+            <div class="form-group">
+                <label>How likely are you to recommend our brand to your family and friends?<br>From 0 being the lowest and 10 being the highest</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="nps1" name="nps" value="1" required>
+                        <label for="nps1">1</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps2" name="nps" value="2">
+                        <label for="nps2">2</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps3" name="nps" value="3">
+                        <label for="nps3">3</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps4" name="nps" value="4">
+                        <label for="nps4">4</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps5" name="nps" value="5">
+                        <label for="nps5">5</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps6" name="nps" value="6">
+                        <label for="nps6">6</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps7" name="nps" value="7">
+                        <label for="nps7">7</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps8" name="nps" value="8">
+                        <label for="nps8">8</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps9" name="nps" value="9">
+                        <label for="nps9">9</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="nps10" name="nps" value="10">
+                        <label for="nps10">10</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <div class="mobile-input">
+                    <select name="countryCode" id="countryCode">
+                        <option value="+63">+63 (PH)</option>
+                        <!-- Add more country codes as needed -->
+                    </select>
+                    <input type="tel" id="mobile" name="mobile" required maxlength="11" minlength="10">
+                </div>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

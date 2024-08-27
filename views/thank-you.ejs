@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Your Feedback</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .thank-you-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .thank-you-title {
+            color: #007BFF;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .thank-you-message {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .discount-code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            padding: 10px;
+            border: 2px dashed #28a745;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .return-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .return-home:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <h1 class="thank-you-title">Thank You for Your Honesty!</h1>
+        <p class="thank-you-message">We appreciate you taking the time to share your thoughts with us. Your feedback is valuable and helps us improve our services.</p>
+        <p>Here's your discount code for your next visit:</p>
+        <div class="discount-code"><%= code %></div>
+        <p>Please present this code during your next visit to redeem your discount.</p>
+        <a href="/" class="return-home">Return to Home</a>
+    </div>
+</body>
+</html>

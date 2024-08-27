@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Survey Data</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Data</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>NPS Rating</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Discount Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% surveyData.forEach(data => { %>
+                    <tr>
+                        <td><%= data.timestamp %></td>
+                        <td><%= data.nps %></td>
+                        <td><%= data.email %></td>
+                        <td><%= data.mobile %></td>
+                        <td><%= data.code %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <a href="/download" class="button">Download CSV</a>
+    </div>
+</body>
+</html>
